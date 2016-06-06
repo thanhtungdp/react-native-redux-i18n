@@ -23,11 +23,7 @@ export class TranslateView extends Component {
             }
         })
 
-        return (
-            <View style={this.props.style}>
-                {React.cloneElement(this.props.children, props)}
-            </View>
-        )
+        return React.cloneElement(this.props.children, props)
     }
 }
 

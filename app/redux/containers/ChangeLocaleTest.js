@@ -4,6 +4,25 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {translateText, wrapTranslate, setLocale} from '../../libs/localize/index';
 
+class ChildComponent extends Component {
+    render() {
+        return (
+            <View>
+                <Text style={styles.hello}>{translateText('hello')}</Text>
+                <ChildComponentTwo />
+            </View>
+        )
+    }
+}
+
+class ChildComponentTwo extends Component {
+    render() {
+        return (
+            <Text style={styles.hello}>{translateText('hello')}</Text>
+        )
+    }
+}
+
 class ChangeLocaleTest extends Component {
     render() {
         return (
@@ -13,12 +32,16 @@ class ChangeLocaleTest extends Component {
                 <Text style={styles.hello}>{translateText('hello_name', {name: 'Tung'})}</Text>
                 {wrapTranslate(
                     {placeholder: {value: 'hello_name', params: {name: 'Tung'}}},
-                    <TextInput style={styles.button}/>
+                    <TextInput style={styles.input}/>,
+                    {flex: 1}
                 )}
-                <Text onPress={() => this.props.setLocale('en')}
+                <Text onPress={() => this.props.setLocale(this.props.currentLocale == 'en' ? 'vi' : 'en')}
                       style={styles.button}>
-                    Change to english
+                    Change to {' '}{this.props.currentLocale == 'en' ? 'Vietnamese' : 'English'}
                 </Text>
+                <Text>Child component</Text>
+                <ChildComponent />
+                <ChildComponentTwo/>
             </View>
         )
     }
@@ -44,10 +67,19 @@ const styles = {
     hello: {
         fontSize: 20, marginBottom: 20
     },
+    input:{
+        borderWidth: 1,
+        borderColor: '#333333',
+        fontSize:12,
+        height: 40,
+        paddingLeft: 10
+    },
     button: {
-        width: 150, borderWidth: 1,
+        borderWidth: 0,
         borderColor: '#333333', padding: 10,
-        height: 60
+        marginTop: 10,
+        marginBottom: 10,
+        color: '#ffffff',
+        backgroundColor: '#fc605c',
     }
 };
-

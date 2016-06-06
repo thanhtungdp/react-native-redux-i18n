@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TextInput} from 'react-native';
 import I18n from 'react-native-i18n';
+import languages from './languages/index';
 
 class ChildComponentTwo extends Component {
     render() {
@@ -14,15 +15,17 @@ class ChildComponentTwo extends Component {
 
 class ChildComponent extends Component {
     render() {
-        console.log(this.props.changeLocale);
         return (
             <View style={styles.view_container}>
+                <Text style={styles.hello}>Current language: {this.props.I18n.locale}</Text>
                 <Text style={styles.hello}>{this.props.I18n.t('hello')}</Text>
-                <Text onPress={() => this.props.changeLocale('en')}
+                <Text style={styles.hello}>{this.props.I18n.t('hello_name', {name: 'Tung'})}</Text>
+                <TextInput style={styles.input} placeholder={this.props.I18n.t('hello_name', {name: 'Tung'})}/>
+                <Text onPress={() => this.props.changeLocale(this.props.I18n.locale == 'en' ? 'vi' : 'en')}
                       style={styles.button}>
-                    Change to english
+                    Change to {' '}{this.props.I18n.locale == 'en' ? 'Vietnamese' : 'English'}
                 </Text>
-                <ChildComponentTwo I18n={this.props.I18n} changeLocale={this.props.changeLocale}/>
+                <ChildComponentTwo I18n={this.props.I18n}/>
             </View>
         );
     }
@@ -32,21 +35,13 @@ export default class AppNormal extends Component {
     constructor() {
         super(...arguments);
         I18n.locale = 'vi';
-        I18n.translations = {
-            en: {
-                hello: 'Hello world'
-            },
-            vi: {
-                hello: 'Xin chào'
-            }
-        }
+        I18n.translations = languages;
         this.state = {
             I18n
         }
     }
 
     changeLocale(locale = 'vi') {
-        console.log('change to lang: ' + locale);
         let i18nClone = this.state.I18n;
         i18nClone.locale = locale;
         this.setState({I18n: i18nClone});
@@ -68,8 +63,20 @@ const styles = {
     hello: {
         fontSize: 20, marginBottom: 20
     },
+    input:{
+        borderWidth: 1,
+        borderColor: '#333333',
+        fontSize:12,
+        height: 40,
+        paddingLeft: 10
+    },
     button: {
-        width: 150, borderWidth: 1,
-        borderColor: '#333333', padding: 10
+        borderWidth: 0,
+        borderColor: '#333333', padding: 10,
+        marginTop: 10,
+        marginBottom: 10,
+        color: '#ffffff',
+        backgroundColor: '#fc605c',
     }
 };
+

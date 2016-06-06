@@ -17,7 +17,7 @@ import AppNormal from './app/AppNormal';
 class ReactAppLanguage extends Component {
   render() {
     return (
-      <AppNormal/>
+      <AppRedux/>
     );
     /*
      // Ussage with redux app
