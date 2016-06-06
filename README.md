@@ -1,11 +1,21 @@
 
 # React Native Redux I18n - Multiple languages
-This project is a simple app multiple language ussage with redux (or normal code).
+This project is a simple app multiple language usage with redux (or normal code).
+
+## Demo image
+Demo:
+![demo gif][demo]
+[demo]: http://www.upsieutoc.com/images/2016/06/06/ScreenShot2016-06-06at11.05.06PM.png
+
+## Other app usage it
+* Android: http://hoahoc.tungtung.vn/android
+* IOS: http://hoahoc.tungtung.vn/ios
+* Web: http://hoahoc.tungtung.vn
 
 ## Installation
 ``` code
 git clone https://github.com/thanhtungdp/react-native-redux-i18n
-cd react-native-redux-i18n
+cd react-native-redux-i18n o
 npm install
 react-native run-ios
 react-native run-android
